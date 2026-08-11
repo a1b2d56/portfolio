@@ -1,0 +1,194 @@
+@import "tailwindcss";
+
+@import "@fontsource/space-grotesk/500.css";
+@import "@fontsource/space-grotesk/600.css";
+@import "@fontsource/space-grotesk/700.css";
+@import "@fontsource/ibm-plex-sans/400.css";
+@import "@fontsource/ibm-plex-sans/500.css";
+@import "@fontsource/ibm-plex-sans/600.css";
+@import "@fontsource/ibm-plex-mono/400.css";
+@import "@fontsource/ibm-plex-mono/500.css";
+
+@theme {
+  /* Color system: dark substrate with a gold/brass accent, grounded in
+     circuit-board register - dark PCB green-black base, gold-plated-contact
+     accent (more literally authentic than copper - connector plating on
+     real boards is gold for corrosion resistance). */
+  --color-bg: #0d1210;
+  --color-surface: #121714;
+  --color-surface-raised: #171d19;
+  --color-border: #262e29;
+  --color-border-soft: #1b211d;
+  --color-text: #eceee8;
+  --color-text-muted: #8a9188;
+  --color-text-faint: #7e857a;
+  --color-accent: #e6b567;
+  --color-accent-dim: #b48e51;
+  --color-accent-soft: #e6b5671a;
+
+  /* Type system */
+  --font-display: "Space Grotesk", "Helvetica Neue", sans-serif;
+  --font-body: "IBM Plex Sans", "Helvetica Neue", sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+
+  --animate-reveal: reveal 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+
+  @keyframes reveal {
+    from {
+      opacity: 0;
+      transform: translateY(14px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+@layer utilities {
+  .circuit-flow {
+    stroke-dasharray: 5 16;
+    animation: circuit-dash var(--dur, 10s) linear infinite;
+  }
+
+  @keyframes circuit-dash {
+    to {
+      stroke-dashoffset: -420;
+    }
+  }
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  html {
+    background: var(--color-bg);
+    color-scheme: dark;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background: var(--color-bg);
+    color: var(--color-text);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background: var(--color-accent);
+    color: var(--color-bg);
+  }
+
+  a {
+    color: inherit;
+  }
+
+  :focus-visible {
+    outline: 1.5px solid var(--color-accent);
+    outline-offset: 3px;
+  }
+
+  html.custom-cursor-active,
+  html.custom-cursor-active * {
+    cursor: none;
+  }
+
+  html.custom-cursor-active input,
+  html.custom-cursor-active textarea {
+    cursor: text;
+  }
+
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    pointer-events: none;
+    opacity: 0.035;
+    mix-blend-mode: overlay;
+    background-repeat: repeat;
+    background-size: 180px 180px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .page-enter {
+    animation: page-fade 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  @keyframes page-fade {
+    from {
+      opacity: 0;
+      transform: translateY(6px) scale(0.995);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: 0.45s;
+    animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    ::view-transition-group(*),
+    ::view-transition-old(*),
+    ::view-transition-new(*) {
+      animation: none !important;
+    }
+  }
+
+  /* Native scroll-linked reveal - the technique behind the GTA VI site's
+     scroll animations (CSS animation-timeline, not a JS scroll listener).
+     Progress tracks scroll position 1:1 instead of firing once. Falls
+     back to the IntersectionObserver version in SectionReveal.tsx on
+     browsers that don't support it yet. */
+  @supports (animation-timeline: view()) {
+    .sr-native {
+      animation: reveal-view linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 90%;
+    }
+  }
+
+  @keyframes reveal-view {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .sr-native {
+      animation: none !important;
+      opacity: 1 !important;
+      transform: none !important;
+    }
+  }
+}
