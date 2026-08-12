@@ -33,7 +33,8 @@ export default function CustomCursor() {
       }
     };
 
-    const onLeave = () => {
+    const onLeave = (e: MouseEvent) => {
+      if (e.relatedTarget !== null) return;
       if (dotRef.current) dotRef.current.style.opacity = "0";
       if (ringRef.current) ringRef.current.style.opacity = "0";
     };
@@ -50,13 +51,13 @@ export default function CustomCursor() {
     };
 
     window.addEventListener("mousemove", onMove, { passive: true });
-    document.addEventListener("mouseleave", onLeave);
+    window.addEventListener("mouseout", onLeave);
     raf = requestAnimationFrame(tick);
 
     return () => {
       document.documentElement.classList.remove("custom-cursor-active");
       window.removeEventListener("mousemove", onMove);
-      document.removeEventListener("mouseleave", onLeave);
+      window.removeEventListener("mouseout", onLeave);
       cancelAnimationFrame(raf);
     };
   }, []);

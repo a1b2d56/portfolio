@@ -1,11 +1,18 @@
-import { useRef, type ReactNode, type ElementType, type ComponentPropsWithoutRef } from "react";
+import {
+  useRef,
+  type CSSProperties,
+  type ReactNode,
+  type ElementType,
+  type ComponentPropsWithoutRef,
+} from "react";
 
 type MagneticProps<T extends ElementType> = {
   as?: T;
   strength?: number;
   children: ReactNode;
   className?: string;
-} & Omit<ComponentPropsWithoutRef<T>, "as" | "children" | "className">;
+  style?: CSSProperties;
+} & Omit<ComponentPropsWithoutRef<T>, "as" | "children" | "className" | "style">;
 
 const finePointer =
   typeof window !== "undefined" && window.matchMedia("(pointer: fine)").matches;
@@ -18,6 +25,7 @@ export default function Magnetic<T extends ElementType = "a">({
   strength = 14,
   children,
   className,
+  style,
   ...rest
 }: MagneticProps<T>) {
   const ref = useRef<HTMLElement>(null);
@@ -25,7 +33,7 @@ export default function Magnetic<T extends ElementType = "a">({
 
   if (!finePointer || reducedMotion) {
     return (
-      <Component className={className} {...rest}>
+      <Component className={className} style={style} {...rest}>
         {children}
       </Component>
     );
@@ -52,7 +60,7 @@ export default function Magnetic<T extends ElementType = "a">({
       onMouseMove={handleMove}
       onMouseLeave={handleLeave}
       className={className}
-      style={{ transition: "transform 0.25s cubic-bezier(0.16,1,0.3,1)" }}
+      style={{ transition: "transform 0.25s cubic-bezier(0.16,1,0.3,1)", ...style }}
       {...rest}
     >
       {children}

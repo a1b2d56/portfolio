@@ -16,7 +16,7 @@ export default function Nav({
           to="/"
           className="font-display text-sm font-semibold tracking-tight text-text hover:text-accent transition-colors"
         >
-          Ananmay
+          Ananmay Jha
         </TransitionLink>
         <div className="flex items-center gap-6 font-mono text-[11px] uppercase tracking-[0.14em] text-text-muted">
           <TransitionLink to="/work" className="hover:text-accent transition-colors">

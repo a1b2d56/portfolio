@@ -36,7 +36,7 @@ export default function Footer() {
           ))}
         </div>
         <p className="mt-16 font-mono text-[11px] text-text-faint">
-          Ananmay — New Delhi, India
+          Ananmay Jha — New Delhi, India
         </p>
       </div>
     </footer>

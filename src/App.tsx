@@ -13,7 +13,7 @@ const CaseStudy = lazy(() => import("./pages/CaseStudy"));
 function ScrollToTop() {
   const { pathname } = useLocation();
   useEffect(() => {
-    window.scrollTo(0, 0);
+    window.scrollTo({ top: 0, left: 0, behavior: "instant" });
   }, [pathname]);
   return null;
 }
@@ -37,6 +37,33 @@ export default function App() {
     return () => window.removeEventListener("keydown", onKey);
   }, []);
 
+  // Route chunks are code-split for initial load size, but a View
+  // Transition navigating to a not-yet-loaded chunk would snapshot the
+  // Suspense fallback (blank) as the "after" state - the transition plays
+  // to nothing, then real content pops in outside the transition once the
+  // chunk resolves. Pre-warming during idle time keeps the initial-load
+  // win while avoiding that race for effectively all real navigations.
+  useEffect(() => {
+    const preload = () => {
+      import("./pages/Work");
+      import("./pages/About");
+      import("./pages/CaseStudy");
+    };
+
+    type WindowWithIdle = typeof window & {
+      requestIdleCallback?: (cb: () => void) => number;
+      cancelIdleCallback?: (id: number) => void;
+    };
+    const w = window as WindowWithIdle;
+
+    if (typeof w.requestIdleCallback === "function") {
+      const id = w.requestIdleCallback(preload);
+      return () => w.cancelIdleCallback?.(id);
+    }
+    const id = window.setTimeout(preload, 1);
+    return () => window.clearTimeout(id);
+  }, []);
+
   const closePalette = () => {
     setPaletteOpen(false);
     paletteTriggerRef.current?.focus();
@@ -56,6 +83,7 @@ export default function App() {
       <CommandPalette open={paletteOpen} onClose={closePalette} />
       <main
         id="main-content"
+        tabIndex={-1}
         key={location.pathname}
         className={supportsViewTransitions ? undefined : "page-enter"}
       >

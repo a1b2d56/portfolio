@@ -17,12 +17,13 @@ const vias = [
 export default function CircuitField() {
   const wrapRef = useRef<HTMLDivElement>(null);
   const outerRef = useRef<HTMLDivElement>(null);
-  const [reduced, setReduced] = useState(false);
+  const [reduced] = useState(
+    () =>
+      typeof window !== "undefined" &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches,
+  );
 
   useEffect(() => {
-    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
-    setReduced(mq.matches);
-
     let scrollRaf = 0;
     const onScroll = () => {
       if (scrollRaf) return;
@@ -39,7 +40,7 @@ export default function CircuitField() {
     window.addEventListener("scroll", onScroll, { passive: true });
 
     const finePointer = window.matchMedia("(pointer: fine)").matches;
-    if (mq.matches || !finePointer) {
+    if (reduced || !finePointer) {
       return () => {
         window.removeEventListener("scroll", onScroll);
         cancelAnimationFrame(scrollRaf);
@@ -75,7 +76,7 @@ export default function CircuitField() {
       cancelAnimationFrame(raf);
       cancelAnimationFrame(scrollRaf);
     };
-  }, []);
+  }, [reduced]);
 
   return (
     <div

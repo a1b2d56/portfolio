@@ -20,6 +20,7 @@ export default function CommandPalette({
   const [query, setQuery] = useState("");
   const [activeIndex, setActiveIndex] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null);
+  const dialogRef = useRef<HTMLDivElement>(null);
 
   const items = useMemo<Item[]>(() => {
     const go = (path: string) => () => {
@@ -28,6 +29,10 @@ export default function CommandPalette({
     };
     const visit = (url: string) => () => {
       window.open(url, "_blank", "noreferrer");
+      onClose();
+    };
+    const mail = (address: string) => () => {
+      window.location.href = `mailto:${address}`;
       onClose();
     };
 
@@ -42,7 +47,7 @@ export default function CommandPalette({
       })),
       { label: "GitHub", hint: "contact", action: visit(contact.github) },
       { label: "LinkedIn", hint: "contact", action: visit(contact.linkedin) },
-      { label: "Email", hint: "contact", action: visit(`mailto:${contact.email}`) },
+      { label: "Email", hint: "contact", action: mail(contact.email) },
     ];
   }, [navigate, onClose]);
 
@@ -64,6 +69,13 @@ export default function CommandPalette({
   }, [open]);
 
   useEffect(() => {
+    const container = dialogRef.current;
+    if (!container) return;
+    const buttons = container.querySelectorAll<HTMLElement>("button");
+    buttons[activeIndex]?.scrollIntoView({ block: "nearest" });
+  }, [activeIndex]);
+
+  useEffect(() => {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
@@ -77,6 +89,22 @@ export default function CommandPalette({
       } else if (e.key === "Enter") {
         e.preventDefault();
         filtered[activeIndex]?.action();
+      } else if (e.key === "Tab") {
+        const container = dialogRef.current;
+        if (!container) return;
+        const focusables = container.querySelectorAll<HTMLElement>(
+          'input, button:not([disabled]), [href]',
+        );
+        if (focusables.length === 0) return;
+        const first = focusables[0];
+        const last = focusables[focusables.length - 1];
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
       }
     };
     window.addEventListener("keydown", onKey);
@@ -91,6 +119,7 @@ export default function CommandPalette({
       onClick={onClose}
     >
       <div
+        ref={dialogRef}
         role="dialog"
         aria-modal="true"
         aria-label="Command palette"

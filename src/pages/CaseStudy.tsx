@@ -15,7 +15,7 @@ export default function CaseStudy() {
   const repoData = useGithubRepo(project?.href ?? "");
 
   if (!project || !study) {
-    return <Navigate to="/" replace />;
+    return <Navigate to="/work" replace />;
   }
 
   return (

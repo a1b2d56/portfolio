@@ -122,6 +122,7 @@ export default function HeroBackground() {
       cancelAnimationFrame(raf);
       window.removeEventListener("resize", handleResize);
       window.removeEventListener("mousemove", onMove);
+      gl.deleteVertexArray(vao);
       gl.deleteProgram(program);
       gl.deleteShader(vs);
       gl.deleteShader(fs);

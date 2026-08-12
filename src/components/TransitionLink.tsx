@@ -1,7 +1,10 @@
 import { Link, useNavigate, type LinkProps } from "react-router-dom";
+import type { Ref } from "react";
 import { navigateWithTransition } from "../lib/viewTransition";
 
-export default function TransitionLink({ to, onClick, ...rest }: LinkProps) {
+type TransitionLinkProps = LinkProps & { ref?: Ref<HTMLAnchorElement> };
+
+export default function TransitionLink({ to, onClick, ref, ...rest }: TransitionLinkProps) {
   const navigate = useNavigate();
 
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
@@ -13,5 +16,5 @@ export default function TransitionLink({ to, onClick, ...rest }: LinkProps) {
     navigateWithTransition(navigate, to as string);
   };
 
-  return <Link to={to} onClick={handleClick} {...rest} />;
+  return <Link ref={ref} to={to} onClick={handleClick} {...rest} />;
 }
