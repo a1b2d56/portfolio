@@ -9,6 +9,7 @@ import Home from "./pages/Home";
 const Work = lazy(() => import("./pages/Work"));
 const About = lazy(() => import("./pages/About"));
 const CaseStudy = lazy(() => import("./pages/CaseStudy"));
+const NotFound = lazy(() => import("./pages/NotFound"));
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -48,6 +49,7 @@ export default function App() {
       import("./pages/Work");
       import("./pages/About");
       import("./pages/CaseStudy");
+      import("./pages/NotFound");
     };
 
     type WindowWithIdle = typeof window & {
@@ -93,6 +95,7 @@ export default function App() {
             <Route path="/work" element={<Work />} />
             <Route path="/about" element={<About />} />
             <Route path="/work/:slug" element={<CaseStudy />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </Suspense>
       </main>

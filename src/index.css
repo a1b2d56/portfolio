@@ -192,3 +192,37 @@
     }
   }
 }
+
+@media print {
+  * {
+    background: #fff !important;
+    color: #111 !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+    animation: none !important;
+    transition: none !important;
+  }
+
+  body::before,
+  a[href="#main-content"],
+  nav button,
+  canvas,
+  [aria-hidden="true"] {
+    display: none !important;
+  }
+
+  header {
+    position: static !important;
+    border-bottom: 1px solid #ccc !important;
+  }
+
+  a {
+    text-decoration: underline;
+  }
+
+  a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.75em;
+    color: #555 !important;
+  }
+}

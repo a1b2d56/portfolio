@@ -138,6 +138,9 @@ export default function CommandPalette({
           />
           <span className="font-mono text-[10px] text-text-faint">ESC</span>
         </div>
+        <p role="status" aria-live="polite" className="sr-only">
+          {filtered.length} result{filtered.length === 1 ? "" : "s"}
+        </p>
         <div className="max-h-80 overflow-y-auto py-2">
           {filtered.length === 0 && (
             <p className="px-4 py-6 text-center font-mono text-xs text-text-faint">
