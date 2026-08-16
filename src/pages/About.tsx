@@ -1,5 +1,7 @@
 import SectionReveal from "../components/SectionReveal";
-import { stackGroups, affiliations } from "../data/projects";
+import Magnetic from "../components/Magnetic";
+import Experience from "../components/Experience";
+import { stackGroups, affiliations, contact } from "../data/projects";
 
 export default function About() {
   return (
@@ -19,9 +21,22 @@ export default function About() {
           Interface design gets equal weight to the architecture behind
           it: software should be as clear to use as it is to maintain.
         </p>
+        <Magnetic
+          href={contact.resume}
+          target="_blank"
+          rel="noreferrer"
+          strength={8}
+          className="mt-7 inline-flex items-center gap-2 rounded-sm border border-accent/50 bg-accent-soft px-5 py-2.5 font-mono text-sm text-accent transition-colors hover:bg-accent hover:text-bg"
+        >
+          View Resume ↗
+        </Magnetic>
       </SectionReveal>
 
       <SectionReveal delay={80}>
+        <Experience />
+      </SectionReveal>
+
+      <SectionReveal delay={120}>
         <div className="mt-16 grid gap-12 border-t border-border-soft pt-14 sm:grid-cols-[1fr_1.3fr]">
           <div>
             <h2 className="font-display text-2xl font-semibold text-balance sm:text-3xl">

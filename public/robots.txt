@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://ananmay.is-a.dev/sitemap.xml
+Sitemap: https://ananmayjha.is-a.dev/sitemap.xml

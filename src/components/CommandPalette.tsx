@@ -48,6 +48,7 @@ export default function CommandPalette({
       { label: "GitHub", hint: "contact", action: visit(contact.github) },
       { label: "LinkedIn", hint: "contact", action: visit(contact.linkedin) },
       { label: "Email", hint: "contact", action: mail(contact.email) },
+      { label: "Resume", hint: "contact", action: visit(contact.resume) },
     ];
   }, [navigate, onClose]);
 

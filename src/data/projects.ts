@@ -116,5 +116,5 @@ export const contact = {
   linkedin: "https://www.linkedin.com/in/ananmay-jha-125bb028a/",
   email: "ananmayjha@gmail.com",
   instagram: "https://www.instagram.com/devilthebloke/",
-  // resume: add href here once it's ready
+  resume: "/resume.pdf",
 };

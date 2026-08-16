@@ -5,6 +5,7 @@ const links = [
   { label: "GitHub", href: contact.github, external: true },
   { label: "LinkedIn", href: contact.linkedin, external: true },
   { label: "Email", href: `mailto:${contact.email}`, external: false },
+  { label: "Resume", href: contact.resume, external: true },
   { label: "Instagram", href: contact.instagram, external: true },
 ];
 
