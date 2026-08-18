@@ -35,7 +35,6 @@ export const projects: Project[] = [
     stack: ["Kotlin", "Jetpack Compose", "Encryption", "Offline-first"],
     href: "https://github.com/a1b2d56/planora",
     caseStudy: true,
-    featured: true,
   },
   {
     slug: "ex-employee",
@@ -43,8 +42,8 @@ export const projects: Project[] = [
     category: "ANDROID / ENTERPRISE",
     oneLiner: "Management portal for Power Grid Corporation of India",
     description:
-      "An ex-employee management portal for Power Grid Corporation of India, built with Kotlin, XML views, Clean Architecture, and Hilt.",
-    stack: ["Kotlin", "XML Views", "Clean Architecture", "Hilt"],
+      "An ex-employee management portal for Power Grid Corporation of India, built with Kotlin, Jetpack Compose, Clean Architecture, and Hilt.",
+    stack: ["Kotlin", "Jetpack Compose", "Clean Architecture", "Hilt"],
     href: "https://github.com/a1b2d56/Ex-Employee",
   },
   {
@@ -57,6 +56,7 @@ export const projects: Project[] = [
     stack: ["C#", "WPF", "Segmented HTTP", "Torrents", "HLS"],
     href: "https://github.com/a1b2d56/Helix",
     caseStudy: true,
+    featured: true,
   },
   {
     slug: "multiai",
