@@ -3,6 +3,7 @@ import { projects } from "../data/projects";
 import { caseStudies } from "../data/caseStudies";
 import SectionReveal from "../components/SectionReveal";
 import CleanArchDiagram from "../components/CleanArchDiagram";
+import ProtocolDiagram from "../components/ProtocolDiagram";
 import Magnetic from "../components/Magnetic";
 import ScrollProgress from "../components/ScrollProgress";
 import TransitionLink from "../components/TransitionLink";
@@ -73,7 +74,8 @@ export default function CaseStudy() {
           <p className="mt-4 text-base leading-relaxed text-text sm:text-lg">
             {study.approach}
           </p>
-          {study.showArchDiagram && <CleanArchDiagram />}
+          {study.diagram === "clean-arch" && <CleanArchDiagram />}
+          {study.diagram === "protocol" && <ProtocolDiagram />}
         </div>
       </SectionReveal>
 

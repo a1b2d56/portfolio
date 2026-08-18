@@ -4,7 +4,7 @@ import HeroBackground from "../components/HeroBackground";
 import Magnetic from "../components/Magnetic";
 import TransitionLink from "../components/TransitionLink";
 
-const featured = projects.filter((p) => p.caseStudy);
+const featured = projects.filter((p) => p.featured);
 
 export default function Home() {
   return (

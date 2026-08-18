@@ -8,6 +8,7 @@ export type Project = {
   status?: string;
   href: string;
   caseStudy?: boolean;
+  featured?: boolean;
 };
 
 export const projects: Project[] = [
@@ -22,6 +23,7 @@ export const projects: Project[] = [
     status: "In progress",
     href: "https://github.com/a1b2d56/Spectre",
     caseStudy: true,
+    featured: true,
   },
   {
     slug: "planora",
@@ -33,6 +35,7 @@ export const projects: Project[] = [
     stack: ["Kotlin", "Jetpack Compose", "Encryption", "Offline-first"],
     href: "https://github.com/a1b2d56/planora",
     caseStudy: true,
+    featured: true,
   },
   {
     slug: "ex-employee",
@@ -53,6 +56,7 @@ export const projects: Project[] = [
       "A multi-threaded download manager for Windows, built with C# and WPF. Supports segmented HTTP downloads, torrents, HLS streams, and YouTube extraction, with a companion browser extension for capturing downloads directly.",
     stack: ["C#", "WPF", "Segmented HTTP", "Torrents", "HLS"],
     href: "https://github.com/a1b2d56/Helix",
+    caseStudy: true,
   },
   {
     slug: "multiai",
