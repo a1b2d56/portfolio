@@ -21,19 +21,19 @@ export default function About() {
           Interface design gets equal weight to the architecture behind
           it: software should be as clear to use as it is to maintain.
         </p>
+      </SectionReveal>
+
+      <SectionReveal delay={80}>
+        <Experience />
         <Magnetic
           href={contact.resume}
           target="_blank"
           rel="noreferrer"
           strength={8}
-          className="mt-7 inline-flex items-center gap-2 rounded-sm border border-accent/50 bg-accent-soft px-5 py-2.5 font-mono text-sm text-accent transition-colors hover:bg-accent hover:text-bg"
+          className="mt-8 inline-flex items-center gap-2 rounded-sm border border-accent/50 bg-accent-soft px-5 py-2.5 font-mono text-sm text-accent transition-colors hover:bg-accent hover:text-bg"
         >
-          View Resume ↗
+          View Full Résumé ↗
         </Magnetic>
-      </SectionReveal>
-
-      <SectionReveal delay={80}>
-        <Experience />
       </SectionReveal>
 
       <SectionReveal delay={120}>

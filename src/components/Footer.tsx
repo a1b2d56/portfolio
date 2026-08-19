@@ -39,6 +39,10 @@ export default function Footer() {
         <p className="mt-16 font-mono text-[11px] text-text-faint">
           Ananmay Jha — New Delhi, India
         </p>
+        <p className="mt-2 font-mono text-[11px] text-text-faint">
+          Coded in VS Code. Built with Vite, React, and Tailwind CSS.
+          Deployed on Vercel.
+        </p>
       </div>
     </footer>
   );
