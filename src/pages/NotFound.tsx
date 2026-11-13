@@ -1,34 +1,23 @@
-import SectionReveal from "../components/SectionReveal";
+import { ArrowLeft, ArrowRight } from "lucide-react";
+import PageHeader from "../components/PageHeader";
 import TransitionLink from "../components/TransitionLink";
 
 export default function NotFound() {
   return (
-    <section className="mx-auto flex min-h-[60vh] max-w-5xl flex-col justify-center px-6 py-24 sm:px-8">
-      <SectionReveal>
-        <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-text-faint">
-          // 404
-        </p>
-        <h1 className="mt-4 max-w-lg font-display text-3xl font-semibold text-balance sm:text-4xl">
-          Route not found.
-        </h1>
-        <p className="mt-4 max-w-md text-base leading-relaxed text-text-muted">
-          This path doesn't exist. It might've moved, or never did.
-        </p>
-        <div className="mt-8 flex flex-wrap gap-x-8 gap-y-3">
-          <TransitionLink
-            to="/"
-            className="font-mono text-sm text-text-muted hover:text-accent transition-colors"
-          >
-            ← Home
+    <div className="flex min-h-[60svh] flex-col justify-center">
+      <PageHeader eyebrow={<span>Error · 404</span>} title="Route not found.">
+        <p>This path doesn't exist. It might've moved, or never did.</p>
+        <div className="mt-8 flex flex-wrap gap-3">
+          <TransitionLink to="/" className="btn btn-solid">
+            <ArrowLeft size={14} aria-hidden="true" />
+            Home
           </TransitionLink>
-          <TransitionLink
-            to="/work"
-            className="font-mono text-sm text-text-muted hover:text-accent transition-colors"
-          >
-            View work →
+          <TransitionLink to="/work" className="btn btn-outline">
+            View work
+            <ArrowRight size={14} aria-hidden="true" />
           </TransitionLink>
         </div>
-      </SectionReveal>
-    </section>
+      </PageHeader>
+    </div>
   );
 }

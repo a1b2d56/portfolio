@@ -3,7 +3,8 @@ import { useEffect, useState, useRef, Suspense, lazy } from "react";
 import Nav from "./components/Nav";
 import Footer from "./components/Footer";
 import CommandPalette from "./components/CommandPalette";
-import CustomCursor from "./components/CustomCursor";
+import ScrollRuler from "./components/ScrollRuler";
+import SectionRail from "./components/SectionRail";
 import Home from "./pages/Home";
 
 const Work = lazy(() => import("./pages/Work"));
@@ -75,12 +76,11 @@ export default function App() {
     <div className="min-h-dvh">
       <a
         href="#main-content"
-        className="fixed left-4 top-4 z-[300] -translate-y-20 rounded-sm border border-accent/50 bg-surface-raised px-4 py-2 font-mono text-sm text-accent transition-transform focus:translate-y-0"
+        className="fixed left-4 top-4 z-[300] -translate-y-20 bg-invert-bg px-4 py-2 hud-label font-bold text-invert-fg transition-transform focus:translate-y-0"
       >
         Skip to content
       </a>
       <ScrollToTop />
-      <CustomCursor />
       <Nav onOpenPalette={() => setPaletteOpen(true)} paletteTriggerRef={paletteTriggerRef} />
       <CommandPalette open={paletteOpen} onClose={closePalette} />
       <main
@@ -100,6 +100,8 @@ export default function App() {
         </Suspense>
       </main>
       <Footer />
+      <ScrollRuler />
+      <SectionRail />
     </div>
   );
 }

@@ -1,62 +1,62 @@
-import SectionReveal from "./SectionReveal";
 import { experience } from "../data/experience";
 
 export default function Experience() {
   return (
-    <div className="mt-16 border-t border-border-soft pt-14">
-      <h2 className="font-display text-2xl font-semibold text-balance sm:text-3xl">
-        Experience
-      </h2>
-
-      <div className="mt-10 space-y-10">
-        {experience.map((company) => (
-          <div key={company.company}>
-            <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-              <h3 className="font-display text-lg font-medium text-text">
+    <div>
+      {experience.map((company) => (
+        <div key={company.company}>
+          <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2 border-b border-line px-6 py-8 sm:px-8">
+            <div>
+              <h3 className="font-display text-2xl tracking-[-0.02em] text-ink-strong sm:text-3xl">
                 {company.company}
               </h3>
-              <span className="font-mono text-[11px] text-text-faint">
-                {company.location} · {company.dates}
-              </span>
+              {company.description && (
+                <p className="mt-2 max-w-2xl text-sm leading-relaxed text-muted">
+                  {company.description}
+                </p>
+              )}
             </div>
-
-            <div className="mt-6 space-y-7 border-l border-border-soft pl-6">
-              {company.roles.map((role, i) => (
-                <SectionReveal key={role.title} delay={i * 60}>
-                  <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-                    <h4 className="font-mono text-sm text-accent">{role.title}</h4>
-                    <span className="font-mono text-[10px] text-text-faint">
-                      {role.dates}
-                    </span>
-                  </div>
-
-                  {role.stack && (
-                    <div className="mt-2.5 flex flex-wrap gap-2">
-                      {role.stack.map((tech) => (
-                        <span
-                          key={tech}
-                          className="rounded-sm border border-border px-2 py-0.5 font-mono text-[10px] text-text-muted"
-                        >
-                          {tech}
-                        </span>
-                      ))}
-                    </div>
-                  )}
-
-                  <ul className="mt-3 space-y-2">
-                    {role.bullets.map((bullet) => (
-                      <li key={bullet} className="flex gap-2.5 text-sm leading-relaxed text-text-muted">
-                        <span className="mt-[3px] shrink-0 text-text-faint">—</span>
-                        <span>{bullet}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </SectionReveal>
-              ))}
-            </div>
+            <p className="hud-label text-faint">
+              {company.location} · {company.dates}
+            </p>
           </div>
-        ))}
-      </div>
+
+          <ol className="grid gap-px bg-line md:grid-cols-2">
+            {company.roles.map((role, i) => (
+              <li key={role.title} className="bg-bg p-6 sm:p-8">
+                <div className="flex items-center justify-between gap-4">
+                  <span className="hud-label border border-line-strong px-1.5 py-0.5 text-ink">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <span className="hud-label text-faint">{role.dates}</span>
+                </div>
+                <h4 className="mt-6 font-display text-lg leading-snug text-ink-strong">
+                  {role.title}
+                </h4>
+
+                {role.stack && (
+                  <div className="mt-3 flex flex-wrap gap-1.5">
+                    {role.stack.map((tech) => (
+                      <span key={tech} className="tag">
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                )}
+
+                <ul className="mt-5 space-y-3">
+                  {role.bullets.map((bullet) => (
+                    <li key={bullet} className="flex gap-3 text-sm leading-relaxed text-muted">
+                      <span className="mt-[0.6em] h-px w-3 shrink-0 bg-accent-ink" />
+                      <span>{bullet}</span>
+                    </li>
+                  ))}
+                </ul>
+              </li>
+            ))}
+          </ol>
+        </div>
+      ))}
     </div>
   );
 }

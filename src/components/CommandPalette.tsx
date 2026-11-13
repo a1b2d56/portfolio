@@ -37,18 +37,22 @@ export default function CommandPalette({
     };
 
     return [
-      { label: "Home", hint: "page", action: go("/") },
-      { label: "Work", hint: "page", action: go("/work") },
-      { label: "About", hint: "page", action: go("/about") },
+      { label: "Home", hint: "Page", action: go("/") },
+      { label: "Work & Projects", hint: "Page", action: go("/work") },
+      { label: "About & Background", hint: "Page", action: go("/about") },
+      { label: "Experience (PowerGrid)", hint: "Section", action: go("/about#experience") },
+      { label: "Education (VIT)", hint: "Section", action: go("/about#education") },
+      { label: "Certifications (Oracle OCI)", hint: "Section", action: go("/about#education") },
+      { label: "Tech Stack & Skills", hint: "Section", action: go("/about#stack") },
       ...projects.map((p) => ({
         label: p.name,
-        hint: p.category,
+        hint: p.caseStudy ? `Case Study · ${p.category}` : p.category,
         action: p.caseStudy ? go(`/work/${p.slug}`) : visit(p.href),
       })),
-      { label: "GitHub", hint: "contact", action: visit(contact.github) },
-      { label: "LinkedIn", hint: "contact", action: visit(contact.linkedin) },
-      { label: "Email", hint: "contact", action: mail(contact.email) },
-      { label: "Resume", hint: "contact", action: visit(contact.resume) },
+      { label: "GitHub Profile", hint: "External", action: visit(contact.github) },
+      { label: "LinkedIn Profile", hint: "External", action: visit(contact.linkedin) },
+      { label: "Email Ananmay", hint: "Contact", action: mail(contact.email) },
+      { label: "Download Full Résumé", hint: "PDF Document", action: visit(contact.resume) },
     ];
   }, [navigate, onClose]);
 
@@ -116,7 +120,7 @@ export default function CommandPalette({
 
   return (
     <div
-      className="fixed inset-0 z-[100] flex items-start justify-center bg-bg/70 px-4 pt-24 backdrop-blur-sm"
+      className="fixed inset-0 z-[100] flex items-start justify-center bg-bg-sunken/70 px-4 pt-24 backdrop-blur-sm"
       onClick={onClose}
     >
       <div
@@ -124,27 +128,27 @@ export default function CommandPalette({
         role="dialog"
         aria-modal="true"
         aria-label="Command palette"
-        className="page-enter w-full max-w-lg overflow-hidden rounded-sm border border-border bg-surface-raised shadow-2xl"
+        className="page-enter w-full max-w-lg overflow-hidden border border-line-strong bg-bg shadow-2xl"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="flex items-center gap-3 border-b border-border-soft px-4 py-3">
-          <span className="font-mono text-text-faint">/</span>
+        <div className="flex items-center gap-3 border-b border-line px-4 py-3.5">
+          <span className="font-mono text-faint">/</span>
           <input
             ref={inputRef}
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Jump to a page, project, or contact link…"
-            className="w-full bg-transparent font-mono text-sm text-text placeholder:text-text-faint focus:outline-none"
+            placeholder="Search pages, case studies, technologies, credentials…"
+            className="w-full bg-transparent font-mono text-sm text-ink placeholder:text-faint focus:outline-none"
           />
-          <span className="font-mono text-[10px] text-text-faint">ESC</span>
+          <kbd className="hud-label border border-line px-1.5 py-0.5 text-faint">Esc</kbd>
         </div>
         <p role="status" aria-live="polite" className="sr-only">
           {filtered.length} result{filtered.length === 1 ? "" : "s"}
         </p>
-        <div className="max-h-80 overflow-y-auto py-2">
+        <div className="max-h-80 overflow-y-auto">
           {filtered.length === 0 && (
-            <p className="px-4 py-6 text-center font-mono text-xs text-text-faint">
-              No matches.
+            <p className="hud-label px-4 py-8 text-center text-faint">
+              No matching pages or commands.
             </p>
           )}
           {filtered.map((item, i) => (
@@ -153,14 +157,14 @@ export default function CommandPalette({
               type="button"
               onClick={item.action}
               onMouseEnter={() => setActiveIndex(i)}
-              className={`flex w-full items-center justify-between px-4 py-2.5 text-left font-mono text-sm transition-colors ${
+              className={`flex w-full items-center justify-between gap-4 px-4 py-2.5 text-left text-sm transition-colors ${
                 i === activeIndex
-                  ? "bg-accent-soft text-accent"
-                  : "text-text-muted hover:bg-surface"
+                  ? "bg-invert-bg text-invert-fg font-medium"
+                  : "text-muted hover:text-ink"
               }`}
             >
               <span>{item.label}</span>
-              <span className="text-[10px] uppercase tracking-[0.1em] text-text-faint">
+              <span className="hud-label shrink-0 text-[10px] opacity-60">
                 {item.hint}
               </span>
             </button>
